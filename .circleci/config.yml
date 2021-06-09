@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Write Hello
           command:  |
-          echo "Hello"
+          console.log(Hello)
 workflows:
   # Name the workflow "welcome"
   welcome:
