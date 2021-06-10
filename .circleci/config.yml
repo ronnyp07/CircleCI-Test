@@ -56,7 +56,20 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - print_workflow  
+      - print_workflow
+  print_message_on_fail:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+          name: "this will fail on purpuse"
+          command: |
+            test echo $GITHUB_USER
+      - run:
+          name: "print a message when the job fail"
+          command: |
+            echo "Process Failed"
+          when: on_fail  
 workflows:
   # Name the workflow "welcome"
   welcome:
@@ -65,6 +78,7 @@ workflows:
       - print_pipeline_id
       - print_github_user
       - print_hello
+      - print_message_on_fail
       - print_world:
           requires: [print_hello]
       - save_hello_world_output
