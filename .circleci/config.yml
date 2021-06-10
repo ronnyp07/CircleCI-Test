@@ -22,12 +22,18 @@ jobs:
           name: Write World
           command: |
             echo "World"
+  print_github_user:
+    steps:
+      - run:
+          name: "echo an env var that is part of our project"
+          command: |
+            this code was build by echo $GITHUB_USER 
 workflows:
   # Name the workflow "welcome"
   welcome:
     # Run the welcome/run job in its own container
     jobs:
-      - welcome/run
+      - print_github_user
       - print_hello
       - print_world:
           requires: [print_hello]
