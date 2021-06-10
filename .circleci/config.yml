@@ -39,7 +39,6 @@ jobs:
           root: ~/
           paths:
             - output.txt
-
   print_output_file:
     docker:
       - image: circleci/node:13.8.0
@@ -57,7 +56,7 @@ workflows:
       - print_world:
           requires: [print_hello]
       - save_hello_world_output
-      - print_output_file
+      - print_output_file:
           requires: [save_hello_world_output]
 
 
