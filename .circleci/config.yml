@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Write Hello
           command: |
-          echo "Hello"
+            echo "Hello"
 workflows:
   # Name the workflow "welcome"
   welcome:
