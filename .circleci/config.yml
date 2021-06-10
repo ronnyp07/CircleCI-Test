@@ -12,8 +12,8 @@ jobs:
     steps:
       - run:
           name: Write Hello
-          command:  |
-          console.log('Hello')
+          command: |
+          echo "Hello"
 workflows:
   # Name the workflow "welcome"
   welcome:
