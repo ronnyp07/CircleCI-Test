@@ -69,7 +69,16 @@ jobs:
           name: "print a message when the job fail"
           command: |
             echo "Process Failed"
-          when: on_fail  
+          when: on_fail
+  save_inventory_output:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: echo "[all]" > inventory
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - inventory.txt  
 workflows:
   # Name the workflow "welcome"
   welcome:
@@ -84,5 +93,6 @@ workflows:
       - save_hello_world_output
       - print_output_file:
           requires: [save_hello_world_output]
+      - save_inventory_output
 
 
