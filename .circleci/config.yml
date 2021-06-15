@@ -74,11 +74,11 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo "[all]" > inventory
+      - run: echo "[all]" > ~/inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
-            - inventory  
+            - inventory.txt  
 workflows:
   # Name the workflow "welcome"
   welcome:
