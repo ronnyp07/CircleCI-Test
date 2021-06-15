@@ -78,7 +78,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - inventory.txt  
+            - inventory  
 workflows:
   # Name the workflow "welcome"
   welcome:
