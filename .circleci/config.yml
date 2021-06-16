@@ -81,7 +81,7 @@ jobs:
             - inventory.txt
   aws_output:
     docker:
-      - image: circleci/node:13.8.0
+      - image: ubuntu-2004:202010-01
     steps:
       - checkout
       - run:
