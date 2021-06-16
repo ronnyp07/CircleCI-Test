@@ -78,7 +78,20 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - inventory.txt  
+            - inventory.txt
+  aws_output:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: Instaling AWS CLI
+          command: |
+            sudo apt-get update
+            sudo apt install python3-pip
+            sudo pip3 install awsebcli --upgrade
+      - run: echo aws iam list-users 
+
 workflows:
   # Name the workflow "welcome"
   welcome:
@@ -93,6 +106,7 @@ workflows:
       - save_hello_world_output
       - print_output_file:
           requires: [save_hello_world_output]
-      - save_inventory_output
+      - save_invenstory_output
+      - aws_output
 
 
