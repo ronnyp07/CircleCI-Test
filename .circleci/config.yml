@@ -81,7 +81,7 @@ jobs:
             - inventory.txt
   aws_output:
     docker:
-      - image: ubuntu-2004:202010-01
+      - image: cimg/base:2021.04
     steps:
       - checkout
       - run:
