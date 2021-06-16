@@ -106,7 +106,7 @@ workflows:
       - save_hello_world_output
       - print_output_file:
           requires: [save_hello_world_output]
-      - save_invenstory_output
+      - save_inventory_output
       - aws_output
 
 
