@@ -81,7 +81,7 @@ jobs:
             - inventory.txt
   aws_output:
     docker:
-      - image: cimg/base:2021.04
+      - image: cibuilds/aws:1.16.1
     steps:
       - checkout
       - run:
