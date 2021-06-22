@@ -98,9 +98,8 @@ jobs:
               --stack-name my-stack
 
 workflows:
-  # Name the workflow "welcome"
   welcome:
-    # Run the welcome/run job in its own container
+    # Run the welcome/run job in its own container 
     jobs:
       - print_pipeline_id
       - print_github_user
