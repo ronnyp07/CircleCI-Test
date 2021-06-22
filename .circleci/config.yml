@@ -84,7 +84,18 @@ jobs:
       - image: cibuilds/aws:1.16.1
     steps:
       - checkout
-      - run: aws iam list-users 
+      - run: aws iam list-users
+  create_infrastructure:
+    docker:
+      - image: cibuilds/aws:1.16.1
+    steps:
+      - checkout
+      - run:
+          name: Ensure backend infrastructure exist
+          command: |
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name my-stack
 
 workflows:
   # Name the workflow "welcome"
@@ -102,5 +113,6 @@ workflows:
           requires: [save_hello_world_output]
       - save_inventory_output
       - aws_output
+      - create_infrastructure
 
 
