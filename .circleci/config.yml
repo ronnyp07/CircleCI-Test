@@ -111,12 +111,28 @@ jobs:
           name: Configure server
           command: |
             ansible-playbook -i inventory.txt main-remote.yml
-
+  smoke_test:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: apk add --update curl
+      - run:
+          name: Run smoke test
+          command: |
+            URL="https://blog.udacity.com/"
+            if curl -s --head ${URL} # test if blog.udacity. com exists
+            then
+              return 0
+            else
+              return 1
+            fi
 workflows:
   welcome:
     # Run the welcome/run job in its own container 
     jobs:
-      - configure_infrastructure
+      # - configure_infrastructure
+      - smoke_test
       # - print_pipeline_id
       #- print_github_user
       #- print_hello
