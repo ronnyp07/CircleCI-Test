@@ -113,7 +113,7 @@ jobs:
             ansible-playbook -i inventory.txt main-remote.yml
   smoke_test:
     docker:
-      - image: circleci/node:13.8.0
+      - image: alpine:latest
     steps:
       - checkout
       - run: apk add --update curl
