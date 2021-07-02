@@ -87,7 +87,7 @@ jobs:
       - run: aws iam list-users
   create_infrastructure:
     docker:
-      - image: cibuilds/aws:1.16.1
+      - image: amazon/aws-cli
     steps:
       - checkout
       - run:
@@ -127,12 +127,24 @@ jobs:
             else
               return 1
             fi
+  create_infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Ensure backend infrastructure exist
+          command: |
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name my-stack
 workflows:
   welcome:
     # Run the welcome/run job in its own container 
     jobs:
+        - create_infrastructure
       # - configure_infrastructure
-      - smoke_test
+      # - smoke_test
       # - print_pipeline_id
       #- print_github_user
       #- print_hello
