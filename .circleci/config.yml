@@ -140,7 +140,7 @@ jobs:
               --stack-name my-stack
 workflows:
   welcome:
-    # Run the welcome/run job in its own container 
+     # Run the welcome/run job in its own container 
     jobs:
         - create_infrastructure
       # - configure_infrastructure
