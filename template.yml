@@ -5,7 +5,8 @@ Resources:
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       KeyName: auth
-      ImageId: 'ami-0d563aeddd4be7fff'
+      ImageId: 'ami-0b9064170e32bde34'
+      InstanceType: "t2.micro"
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
