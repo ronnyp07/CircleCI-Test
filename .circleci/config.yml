@@ -6,7 +6,12 @@ commands:
       print_workflow:
         description: "A very simple command for demonstration purposes"
         steps:
-          - run: echo $CIRCLE_WORKFLOW_ID 
+          - run: echo $CIRCLE_WORKFLOW_ID
+      destroy_environment:
+        - run:
+            name: Destroy enviroment
+            command: |
+              aws cloudformation delete-stack --stack-name prod-${CIRCLE_WORKFLOW_ID}
 orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
@@ -111,6 +116,17 @@ jobs:
   #         name: Configure server
   #         command: |
   #           ansible-playbook -i inventory.txt main-remote.yml
+  create_infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Ensure backend infrastructure exist
+          command: |
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name my-stack
   # smoke_test:
   #   docker:
   #     - image: alpine:latest
@@ -127,17 +143,17 @@ jobs:
   #           else
   #             return 1
   #           fi
-  create_infrastructure:
+  smoke_test:
     docker:
       - image: amazon/aws-cli
     steps:
       - checkout
       - run:
-          name: Ensure backend infrastructure exist
+          name: Simulate error
           command: |
-            aws cloudformation deploy \
-              --template-file template.yml \
-              --stack-name my-stack
+            return 1 #simulate an error, cause the job to fail
+      - destroy_environment
+        when: on_fail
 workflows:
   welcome:
       # Run the welcome/run job in its own container 
